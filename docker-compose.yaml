@@ -1,3 +1,5 @@
+version: "3.9"
+
 services:
   # WordPress DB service (separate for WP)
   mysql_wp:
@@ -71,7 +73,7 @@ services:
     ports:
       - "${PMA_CI_PORT:-8082}:80"
 
-  # WordPress Service (for Task 1)
+  # WordPress Service
   wordpress:
     image: wordpress:latest
     container_name: wordpress_app
@@ -79,6 +81,8 @@ services:
       - mysql_wp
       - redis
     restart: always
+    env_file:
+      - .env
     environment:
       WORDPRESS_DB_HOST: "${WP_DB_HOST}"
       WORDPRESS_DB_USER: "${WP_DB_USER}"
@@ -91,6 +95,7 @@ services:
     ports:
       - "${WP_PORT:-8010}:80"
 
+  # CodeIgniter Service
   codeigniter:
     image: webdevops/php-apache:7.4
     container_name: codeigniter_app
@@ -98,6 +103,8 @@ services:
       - mysql_ci
       - redis
     restart: always
+    env_file:
+      - .env
     volumes:
       - ./codeigniter:/app
       - ./codeigniter/docker/httpd/vhost.common.d:/opt/docker/etc/httpd/vhost.common.d:ro
@@ -123,7 +130,6 @@ services:
     container_name: static_site
     restart: always
     volumes:
-      # Mounts the Gatsby build output directory to be served by Nginx
       - ./static-site/public:/usr/share/nginx/html
     networks:
       - app-network
