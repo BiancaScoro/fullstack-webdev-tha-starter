@@ -5,6 +5,7 @@ class Status extends MY_Controller
 {
     public function index()
     {
-        $this->respond(['status' => 'online']);
+        header('Content-Type: application/json');
+        echo json_encode(['status' => 'online']);
     }
 }

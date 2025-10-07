@@ -74,23 +74,23 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-	'dsn'	=> '',
-	'hostname' => getenv('DB_HOST') ?: 'localhost',
-	'username' => getenv('DB_USER') ?: '',
-	'password' => getenv('DB_PASSWORD') ?: '',
-	'database' => getenv('DB_NAME') ?: '',
-	'dbdriver' => 'mysqli',
-	'dbprefix' => '',
-	'pconnect' => FALSE,
-	'db_debug' => (ENVIRONMENT !== 'production'),
-	'cache_on' => FALSE,
-	'cachedir' => '',
-	'char_set' => 'utf8',
-	'dbcollat' => 'utf8_general_ci',
-	'swap_pre' => '',
-	'encrypt' => FALSE,
-	'compress' => FALSE,
-	'stricton' => FALSE,
-	'failover' => array(),
-	'save_queries' => TRUE
+    'dsn'       => '',
+    'hostname'  => getenv('DB_HOST') ?: 'mysql_ci', // Use MySQL container name
+    'username'  => getenv('DB_USER') ?: 'root',     // fallback to root
+    'password'  => getenv('DB_PASSWORD') ?: 'yourpassword', // fallback password
+    'database'  => getenv('DB_NAME') ?: 'ci_database',      // fallback database
+    'dbdriver'  => 'mysqli',
+    'dbprefix'  => '',
+    'pconnect'  => FALSE,
+    'db_debug'  => (ENVIRONMENT !== 'production'),
+    'cache_on'  => FALSE,
+    'cachedir'  => '',
+    'char_set'  => 'utf8',
+    'dbcollat'  => 'utf8_general_ci',
+    'swap_pre'  => '',
+    'encrypt'   => FALSE,
+    'compress'  => FALSE,
+    'stricton'  => FALSE,
+    'failover'  => array(),
+    'save_queries' => TRUE
 );
